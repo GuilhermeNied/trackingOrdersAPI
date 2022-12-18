@@ -1,5 +1,5 @@
 interface OrderProps {
-  trackingCode: string
+  trackingCode: string 
   title: string
   description: string
 }
@@ -24,6 +24,10 @@ export class Order {
 
     if (trackingCode === '') {
       throw new Error('Tracking code is required')
+    }
+
+    if (!trackingCode) {
+      throw new Error("Tracking code doesn't exist")
     }
 
     if (title === '') {

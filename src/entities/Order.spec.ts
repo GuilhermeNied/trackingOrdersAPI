@@ -1,5 +1,6 @@
 import { InMemoryOrderRepository } from '../repositories/inMemory/inMemoryOrderRepository'
 import { CreateOrderUseCase } from '../useCases/CreateOrder/createOrderUseCase'
+import { FindOrderByTrackingCodeUseCase } from '../useCases/FindOrderByTrackingCode/findOrderByTrackingCodeUseCase'
 import { Order } from './Order'
 
 interface OrderTest {
@@ -46,5 +47,32 @@ describe('Create Order', () => {
         description: 'Order Description'
       })
     ).rejects.toBeInstanceOf(Error)
+  })
+})
+
+
+describe.only('Find Order By Tracking Code',() => {
+  it('should be able to find order by trackingCode', () => {
+    const inMemoryOrderRepository = new InMemoryOrderRepository()
+    const findOrderByTrackingCode = new FindOrderByTrackingCodeUseCase(inMemoryOrderRepository)
+    
+    return findOrderByTrackingCode.execute('123').then(order => {
+      expect(order).toEqual(order)
+    })
+  
+  })
+
+
+  it.only('should not be able to find the order by the trackingCode which is different from the existing one', async () => {
+    const inMemoryOrderRepository = new InMemoryOrderRepository()
+    const findOrderByTrackingCode = new FindOrderByTrackingCodeUseCase(inMemoryOrderRepository)
+    const order: OrderTest = {
+      trackingCode: '',
+      title: 'Order Title',
+      description: 'Order Description'
+    }
+    
+     expect((await findOrderByTrackingCode.execute('789'))).not.toEqual(order.trackingCode)
+  
   })
 })
