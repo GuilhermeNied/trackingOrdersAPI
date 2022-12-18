@@ -26,10 +26,6 @@ export class Order {
       throw new Error('Tracking code is required')
     }
 
-    if (!trackingCode) {
-      throw new Error("Tracking code doesn't exist")
-    }
-
     if (title === '') {
       throw new Error('Title is required')
     }
