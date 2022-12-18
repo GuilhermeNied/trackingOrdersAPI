@@ -12,6 +12,8 @@ interface OrderTest {
 describe('Create Order', () => {
   const inMemoryOrderRepository = new InMemoryOrderRepository()
   const createOrder = new CreateOrderUseCase(inMemoryOrderRepository)
+  const findOrderByTrackingCode = new FindOrderByTrackingCodeUseCase(inMemoryOrderRepository)
+
   it('should be able to create an order', () => {
     const order: OrderTest = {
       trackingCode: '123',
@@ -48,16 +50,16 @@ describe('Create Order', () => {
       })
     ).rejects.toBeInstanceOf(Error)
   })
+
 })
 
 
 describe('Find Order By Tracking Code',() => {
   const inMemoryOrderRepository = new InMemoryOrderRepository()
   const findOrderByTrackingCode = new FindOrderByTrackingCodeUseCase(inMemoryOrderRepository)
-  it('should be able to find order by trackingCode', () => {
-    return findOrderByTrackingCode.execute('123').then(order => {
-      expect(order).toEqual(order)
-    })
+  it('should be able to find order by trackingCode', async () => {
+    const order = await findOrderByTrackingCode.execute('123')
+    expect(order).toEqual(order)
   })
 
   it('should not be able to find the order by the trackingCode which is different from the existing one', async () => {

@@ -21,6 +21,12 @@ export class CreateOrderUseCase {
       description
     })
 
+    const orderAlreadyExists = await this.orderRepository.findOrderByTrackingCode(trackingCode)
+
+    if (orderAlreadyExists) {
+      throw new Error('Order already exists')
+    }
+
     await this.orderRepository.createOrder(order)
 
     return order
