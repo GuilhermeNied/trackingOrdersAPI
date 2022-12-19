@@ -2,14 +2,20 @@ import { Order } from '../../entities/Order'
 import { OrderRepository } from '../OrderRepository'
 
 export class InMemoryOrderRepository implements OrderRepository {
-  private items: Order[] = []
+  private orders: Order[] = []
 
-  async createOrder(order: Order): Promise<void> {
-    this.items.push(order)
+  async createOrder(order: Order): Promise<Order> {
+    this.orders.push(order)
+    return order
   }
 
   async findOrderByTrackingCode(trackingCode: string): Promise<Order> {
-    const findedOrder = this.items.find(order => order.trackingCode === trackingCode)!!
+    const findedOrder = this.orders.find(order => order.trackingCode === trackingCode)!!
     return findedOrder
+  }
+
+  async orderExists(trackingCode: string): Promise<boolean> {
+    const order = this.orders.some((order) => order.trackingCode === trackingCode)
+    return order
   }
 }

@@ -1,35 +1,19 @@
-interface OrderProps {
+
+
+export class Order {
   trackingCode: string 
   title: string
   description: string
-}
 
-export class Order {
-  private props: OrderProps
+  private constructor({trackingCode, title, description}: Order) {  
 
-  get trackingCode(): string {
-    return this.props.trackingCode
+    
+    return Object.assign(this, { trackingCode, title, description })
   }
 
-  get title(): string {
-    return this.props.trackingCode
-  }
-
-  get description(): string {
-    return this.props.trackingCode
-  }
-
-  constructor(props: OrderProps) {
-    const { trackingCode, title } = props
-
-    if (trackingCode === '') {
-      throw new Error('Tracking code is required')
-    }
-
-    if (title === '') {
-      throw new Error('Title is required')
-    }
-
-    this.props = props
+  static create({trackingCode, title, description}: Order) {
+    const order = new Order({trackingCode, title, description})
+  
+    return order
   }
 }
