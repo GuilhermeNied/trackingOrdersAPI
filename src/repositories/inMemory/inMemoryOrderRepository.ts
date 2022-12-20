@@ -18,4 +18,9 @@ export class InMemoryOrderRepository implements OrderRepository {
     const order = this.orders.some((order) => order.trackingCode === trackingCode)
     return order
   }
+
+  async getAllOrders(): Promise<Order[]> {
+      const orders = this.orders
+      return orders
+  }
 }

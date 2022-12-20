@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { FindOrderByTrackingCodeUseCase } from "./findOrderByTrackingCodeUseCase";
 
-export class FindOrderByTRackingCodeController {
+export class FindOrderByTrackingCodeController {
   constructor(private findOrderByTrackingCodeUseCase: FindOrderByTrackingCodeUseCase){}
 
   async handle(res: Response, trackingCode: string): Promise<Response> {

@@ -1,26 +1,31 @@
-import { Order } from "../../entities/Order"
-import { InMemoryOrderRepository } from "../../repositories/inMemory/inMemoryOrderRepository"
-import { CreateOrderUseCase } from "../CreateOrder/createOrderUseCase"
-import { FindOrderByTrackingCodeUseCase } from "./findOrderByTrackingCodeUseCase"
+import { Order } from '../../entities/Order'
+import { InMemoryOrderRepository } from '../../repositories/inMemory/inMemoryOrderRepository'
+import { CreateOrderUseCase } from '../CreateOrder/createOrderUseCase'
+import { FindOrderByTrackingCodeUseCase } from './findOrderByTrackingCodeUseCase'
 
-describe.only('Find Order By Tracking Code',() => {
+describe.only('Find Order By Tracking Code', () => {
   let inMemoryOrderRepository: InMemoryOrderRepository
   let createOrderUseCase: CreateOrderUseCase
   let findOrderByTrackingCodeUseCase: FindOrderByTrackingCodeUseCase
   beforeAll(() => {
     inMemoryOrderRepository = new InMemoryOrderRepository()
     createOrderUseCase = new CreateOrderUseCase(inMemoryOrderRepository)
-    findOrderByTrackingCodeUseCase = new FindOrderByTrackingCodeUseCase(inMemoryOrderRepository)
+    findOrderByTrackingCodeUseCase = new FindOrderByTrackingCodeUseCase(
+      inMemoryOrderRepository
+    )
   })
+
   it('should be able to find order by trackingCode', async () => {
     const order: Order = {
       trackingCode: '123',
       title: 'Order Title',
       description: 'Order Description'
     }
-     await createOrderUseCase.execute(order)
+    await createOrderUseCase.execute(order)
 
-    const findedOrder = await findOrderByTrackingCodeUseCase.execute(order.trackingCode)
+    const findedOrder = await findOrderByTrackingCodeUseCase.execute(
+      order.trackingCode
+    )
 
     expect(findedOrder.trackingCode).toEqual(order.trackingCode)
     expect(findedOrder).toBeInstanceOf(Order)
@@ -33,6 +38,8 @@ describe.only('Find Order By Tracking Code',() => {
       description: 'Order Description'
     }
 
-    await expect(findOrderByTrackingCodeUseCase.execute(order.trackingCode)).rejects.toBeInstanceOf(Error) 
+    await expect(
+      findOrderByTrackingCodeUseCase.execute(order.trackingCode)
+    ).rejects.toBeInstanceOf(Error)
   })
 })
