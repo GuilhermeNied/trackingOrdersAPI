@@ -35,4 +35,22 @@ export class InMemoryOrderRepository implements OrderRepository {
 
     return deletedOrder[0]
   }
+
+  async updateOrder({
+    trackingCode,
+    title,
+    description
+  }: Order): Promise<Order> {
+    const indexOrder = this.orders.findIndex(
+      order => order.trackingCode === trackingCode
+    )
+
+    const updatedOrder = (this.orders[indexOrder] = {
+      trackingCode,
+      title,
+      description
+    })
+
+    return updatedOrder
+  }
 }

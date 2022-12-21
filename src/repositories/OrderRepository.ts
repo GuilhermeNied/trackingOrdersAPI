@@ -6,4 +6,5 @@ export interface OrderRepository {
   orderExists(trackingCode: string): Promise<boolean>
   getAllOrders(): Promise<Order[]>
   deleteOrderByTrackingCode(trackingCode: string): Promise<Order>
+  updateOrder({ trackingCode, title, description }: Order): Promise<Order>
 }
