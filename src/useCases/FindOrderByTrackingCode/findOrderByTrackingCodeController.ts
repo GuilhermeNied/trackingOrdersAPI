@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { FindOrderByTrackingCodeUseCase } from './findOrderByTrackingCodeUseCase'
 
 export class FindOrderByTrackingCodeController {
@@ -6,7 +6,7 @@ export class FindOrderByTrackingCodeController {
     private findOrderByTrackingCodeUseCase: FindOrderByTrackingCodeUseCase
   ) {}
 
-  async handle(res: Response, trackingCode: string): Promise<Response> {
+  async handle(req: Request,res: Response, trackingCode: string): Promise<Response> {
     try {
       const findedOrder = await this.findOrderByTrackingCodeUseCase.execute(
         trackingCode
