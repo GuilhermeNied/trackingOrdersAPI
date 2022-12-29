@@ -1,11 +1,15 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { Order } from '../../entities/Order'
 import { UpdateOrderUseCase } from './updateOrderUseCase'
 
 export class UpdateOrderController {
   constructor(private updateOrderUseCase: UpdateOrderUseCase) {}
 
-  async handle(res: Response, { trackingCode, title, description }: Order) {
+  async handle(
+    req: Request,
+    res: Response,
+    { trackingCode, title, description }: Order
+  ) {
     try {
       const order = { trackingCode, title, description }
       const updatedOrder = await this.updateOrderUseCase.execute(order)

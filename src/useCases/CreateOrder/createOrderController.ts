@@ -1,12 +1,15 @@
+import { Order } from '@prisma/client'
 import { Request, Response } from 'express'
 import { CreateOrderUseCase } from './createOrderUseCase'
 
 export class CreateOrderController {
   constructor(private createOrderUseCase: CreateOrderUseCase) {}
 
-  async handle(req: Request, res: Response): Promise<Response> {
-    const { trackingCode, title, description } = req.body
-
+  async handle(
+    req: Request,
+    res: Response,
+    { trackingCode, title, description }: Order
+  ): Promise<Response> {
     try {
       await this.createOrderUseCase.execute({
         trackingCode,

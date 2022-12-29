@@ -42,6 +42,7 @@ export class ImplementationOrderRepository implements OrderRepository {
 
     return !!orderExists
   }
+
   async getAllOrders(): Promise<Order[]> {
     try {
       const orders = await prismaClient.order.findMany()
@@ -50,10 +51,39 @@ export class ImplementationOrderRepository implements OrderRepository {
       throw new Error('Error to get orders')
     }
   }
-  deleteOrderByTrackingCode(trackingCode: string): Promise<Order> {
-    throw new Error('Method not implemented.')
+  async deleteOrderByTrackingCode(trackingCode: string): Promise<Order> {
+    try {
+      const deletedOrder = await prismaClient.order.delete({
+        where: {
+          trackingCode
+        }
+      })
+
+      return deletedOrder
+    } catch (error) {
+      throw new Error('Error to delete order')
+    }
   }
-  updateOrder({ trackingCode, title, description }: Order): Promise<Order> {
-    throw new Error('Method not implemented.')
+
+  async updateOrder({
+    trackingCode,
+    title,
+    description
+  }: Order): Promise<Order> {
+    try {
+      const updatedOrder = await prismaClient.order.update({
+        where: {
+          trackingCode
+        },
+        data: {
+          title,
+          description
+        }
+      })
+
+      return updatedOrder
+    } catch (error) {
+      throw new Error('Error to update order')
+    }
   }
 }

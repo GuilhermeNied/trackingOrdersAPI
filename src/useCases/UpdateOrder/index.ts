@@ -1,10 +1,11 @@
-import { ImplementationOrderRepository } from "../../repositories/implementation/ImplementationOrderRepository";
-import { CreateOrderController } from "../CreateOrder/createOrderController";
-import { CreateOrderUseCase } from "../CreateOrder/createOrderUseCase";
+import { ImplementationOrderRepository } from '../../repositories/implementation/ImplementationOrderRepository'
+import { UpdateOrderController } from './updateOrderController'
+import { UpdateOrderUseCase } from './updateOrderUseCase'
 
-const implmentationOrderRepostiory = new ImplementationOrderRepository()
-const createOrderUseCase = new CreateOrderUseCase(implmentationOrderRepostiory)
+const implementationOrderRepository = new ImplementationOrderRepository()
 
-const createOrderController = new CreateOrderController(createOrderUseCase)
+const updateOrderUseCase = new UpdateOrderUseCase(implementationOrderRepository)
 
-export { createOrderController }
+const updateOrderController = new UpdateOrderController(updateOrderUseCase)
+
+export { updateOrderController }

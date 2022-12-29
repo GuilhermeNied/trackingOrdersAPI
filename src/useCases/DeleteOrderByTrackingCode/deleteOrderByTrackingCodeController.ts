@@ -1,4 +1,4 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { DeleteOrderByTrackingCodeUseCase } from './deleteOrderByTrackingCodeUseCase'
 
 export class DeleteOrderByTrackingCodeController {
@@ -6,7 +6,11 @@ export class DeleteOrderByTrackingCodeController {
     private deleteOrderByTrackingUseCase: DeleteOrderByTrackingCodeUseCase
   ) {}
 
-  async handle(res: Response, trackingCode: string): Promise<Response> {
+  async handle(
+    req: Request,
+    res: Response,
+    trackingCode: string
+  ): Promise<Response> {
     try {
       const deletedOrder = await this.deleteOrderByTrackingUseCase.execute(
         trackingCode
