@@ -7,6 +7,7 @@ describe.only('Find Order By Tracking Code', () => {
   let inMemoryOrderRepository: InMemoryOrderRepository
   let createOrderUseCase: CreateOrderUseCase
   let findOrderByTrackingCodeUseCase: FindOrderByTrackingCodeUseCase
+
   beforeAll(() => {
     inMemoryOrderRepository = new InMemoryOrderRepository()
     createOrderUseCase = new CreateOrderUseCase(inMemoryOrderRepository)
