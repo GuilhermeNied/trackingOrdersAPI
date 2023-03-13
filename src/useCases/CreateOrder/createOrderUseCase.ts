@@ -1,7 +1,7 @@
 import { Order } from '../../entities/Order'
 import { OrderRepository } from '../../repositories/OrderRepository'
 
-interface CreteOrderRequest {
+interface CreateOrderRequest {
   trackingCode: string
   title: string
   description: string
@@ -14,7 +14,7 @@ export class CreateOrderUseCase {
     trackingCode,
     title,
     description
-  }: CreteOrderRequest): Promise<Order> {
+  }: CreateOrderRequest): Promise<Order> {
     const orderAlreadyExists = await this.orderRepository.orderExists(
       trackingCode
     )
