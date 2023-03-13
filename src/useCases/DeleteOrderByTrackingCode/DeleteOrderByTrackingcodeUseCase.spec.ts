@@ -4,7 +4,7 @@ import { CreateOrderUseCase } from '../CreateOrder/createOrderUseCase'
 import { GetAllOrdersUseCase } from '../GetAllOrders/getAllOrdersUseCase'
 import { DeleteOrderByTrackingCodeUseCase } from './deleteOrderByTrackingCodeUseCase'
 
-describe.only('Delete Order By Tracking Code', () => {
+describe('Delete Order By Tracking Code', () => {
   let inMemoryOrderRepository: InMemoryOrderRepository
   let getAllOrdersUseCase: GetAllOrdersUseCase
   let createOrderUseCase: CreateOrderUseCase
@@ -18,7 +18,8 @@ describe.only('Delete Order By Tracking Code', () => {
       inMemoryOrderRepository
     )
   })
-  it.only('should be able to delete order by tracking code', async () => {
+
+  it('should be able to delete order by tracking code', async () => {
     const order1: Order = {
       trackingCode: '123',
       title: 'Order Title1',
@@ -36,10 +37,23 @@ describe.only('Delete Order By Tracking Code', () => {
     await createOrderUseCase.execute(order2)
 
     const allOrders = await getAllOrdersUseCase.execute()
-    console.log(allOrders)
 
     await deleteOrderByTrackingCodeUseCase.execute('123')
 
     expect(allOrders).toHaveLength(1)
+  })
+
+  it('should not be able to delete order by tracking code', async () => {
+    const order1: Order = {
+      trackingCode: '123',
+      title: 'Order Title1',
+      description: 'Order Description1'
+    }
+
+    await createOrderUseCase.execute(order1)
+
+    await expect(
+      deleteOrderByTrackingCodeUseCase.execute('789')
+    ).rejects.toBeInstanceOf(Error)
   })
 })

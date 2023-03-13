@@ -15,8 +15,9 @@ export class CreateOrderUseCase {
     title,
     description
   }: CreteOrderRequest): Promise<Order> {
-
-    const orderAlreadyExists = await this.orderRepository.orderExists(trackingCode)
+    const orderAlreadyExists = await this.orderRepository.orderExists(
+      trackingCode
+    )
 
     if (trackingCode === '') {
       throw new Error('Tracking code is required')
@@ -29,8 +30,8 @@ export class CreateOrderUseCase {
     if (orderAlreadyExists) {
       throw new Error('Order already exists')
     }
-   
-    const createdOrder = Order.create({ trackingCode, title, description})
+
+    const createdOrder = Order.create({ trackingCode, title, description })
     const order = await this.orderRepository.createOrder(createdOrder)
 
     return order

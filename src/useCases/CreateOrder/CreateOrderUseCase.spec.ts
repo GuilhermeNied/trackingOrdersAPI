@@ -2,7 +2,7 @@ import { Order } from '../../entities/Order'
 import { InMemoryOrderRepository } from '../../repositories/inMemory/inMemoryOrderRepository'
 import { CreateOrderUseCase } from './createOrderUseCase'
 
-describe.only('Create Order', () => {
+describe('Create Order', () => {
   let inMemoryOrderRepository: InMemoryOrderRepository
   let createOrderUseCase: CreateOrderUseCase
   beforeAll(() => {

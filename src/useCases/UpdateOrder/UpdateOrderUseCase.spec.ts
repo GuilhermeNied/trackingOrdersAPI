@@ -15,6 +15,7 @@ describe('Update Order', () => {
     updateOrderUseCase = new UpdateOrderUseCase(inMemoryOrderRepository)
     getAllOrders = new GetAllOrdersUseCase(inMemoryOrderRepository)
   })
+
   it('should be able to update order', async () => {
     const order: Order = {
       trackingCode: '123',
@@ -38,25 +39,43 @@ describe('Update Order', () => {
     expect(allOrders[0].description).toEqual('Order Description2')
   })
 
-  // it('should be not able to update order when trackingCode is empty', async () => {
-  //   const order: Order = {
-  //     trackingCode: '123',
-  //     title: 'Order Title',
-  //     description: 'Order Description'
-  //   }
+  it('should be not able to update order when trackingCode is empty', async () => {
+    const order: Order = {
+      trackingCode: '456',
+      title: 'Order Title',
+      description: 'Order Description'
+    }
 
-  //   const orderToUpdate: Order = {
-  //     trackingCode: '',
-  //     title: 'Order Title2',
-  //     description: 'Order Description2'
-  //   }
+    await createOrderUseCase.execute(order)
 
-  //   await createOrderUseCase.execute(order)
+    const orderToUpdate: Order = {
+      trackingCode: '',
+      title: 'Order Title2',
+      description: 'Order Description2'
+    }
 
-  //   await updateOrderUseCase.execute(orderToUpdate)
+    await expect(
+      updateOrderUseCase.execute(orderToUpdate)
+    ).rejects.toBeInstanceOf(Error)
+  })
 
-  //   await expect(
-  //     updateOrderUseCase.execute(orderToUpdate)
-  //   ).rejects.toBeInstanceOf(Error)
-  // })
+  it('should be not able to update order when title is empty', async () => {
+    const order: Order = {
+      trackingCode: '789',
+      title: 'Order Title',
+      description: 'Order Description'
+    }
+
+    await createOrderUseCase.execute(order)
+
+    const orderToUpdate: Order = {
+      trackingCode: '789',
+      title: '',
+      description: 'Order Description2'
+    }
+
+    await expect(
+      updateOrderUseCase.execute(orderToUpdate)
+    ).rejects.toBeInstanceOf(Error)
+  })
 })

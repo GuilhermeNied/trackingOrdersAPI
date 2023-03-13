@@ -3,7 +3,7 @@ import { InMemoryOrderRepository } from '../../repositories/inMemory/inMemoryOrd
 import { CreateOrderUseCase } from '../CreateOrder/createOrderUseCase'
 import { FindOrderByTrackingCodeUseCase } from './findOrderByTrackingCodeUseCase'
 
-describe.only('Find Order By Tracking Code', () => {
+describe('Find Order By Tracking Code', () => {
   let inMemoryOrderRepository: InMemoryOrderRepository
   let createOrderUseCase: CreateOrderUseCase
   let findOrderByTrackingCodeUseCase: FindOrderByTrackingCodeUseCase

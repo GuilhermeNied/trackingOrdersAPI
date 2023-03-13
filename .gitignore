@@ -3,3 +3,4 @@ coverage
 docker-compose.yml
 Dockerfile
 .dockerignore
+coverage
